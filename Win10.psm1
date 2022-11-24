@@ -3900,6 +3900,29 @@ Function EnableDefragmentation {
 }
 
 
+# Enable scheduled temporary files cleanup task
+Function EnableTempCleanup {
+	Write-Output "Enabling scheduled temporary files cleanup.."
+
+	if (!(Get-ScheduledTask -TaskName "$($env:USERNAME)_Run_DiskCleanupTool" -ErrorAction Ignore)) {
+		$n=5000
+		& CleanMgr.EXE /sageset:$n /d ($env:SystemDrive)
+		
+		$sta = New-ScheduledTaskAction -Execute 'cleanmgr.exe' -Argument "/sagerun:$n" -WorkingDirectory ($env:SystemDrive)
+		$stt = New-ScheduledTaskTrigger -Weekly -WeeksInterval 1 -DaysOfWeek Sunday -At 3am
+		$st = New-ScheduledTask -Action $sta -Trigger $stt -Description "Run Disk Cleanup Tool" 
+
+		Register-ScheduledTask -InputObject $st -TaskName "$($env:USERNAME)_Run_DiskCleanupTool"
+	}
+}
+
+# Disable scheduled temporary files cleanup task
+Function DisableTempCleanup {
+	Write-Output "Disabling scheduled temporary files cleanup.."
+	Unregister-ScheduledTask -TaskName "$($env:USERNAME)_Run_DiskCleanupTool" -Confirm:$false -ErrorAction Ignore
+}
+
+
 # Disable Shared Experiences - Applicable since 1703. Not applicable to Server
 # This setting can be set also via GPO, however doing so causes reset of Start Menu cache. See https://github.com/Disassembler0/Win10-Initial-Setup-Script/issues/145 for details
 Function DisableSharedExperiences {

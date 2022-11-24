@@ -204,6 +204,7 @@ RequireAdmin
 # DisableSuperfetch             # EnableSuperfetch
 # DisableRecycleBin             # EnableRecycleBin
 # DisableDefragmentation        # EnableDefragmentation
+# EnableTempCleanup             # DisableTempCleanup
 # DisableSharedExperiences      # EnableSharedExperiences
 # EnableClipboardHistory        # DisableClipboardHistory
 # DisableMediaStreaming         # EnableMediaStreaming
