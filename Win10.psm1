@@ -1,9 +1,12 @@
-##########
-# Win 10 / Server 2016 / Server 2019 Initial Setup Script - Tweak library
-# Author: Disassembler <disassembler@dasm.cz>
-# Version: v3.10, 2020-07-15
-# Source: https://github.com/Disassembler0/Win10-Initial-Setup-Script
-##########
+# -
+#   Windows 10 Postinstall Script - Tweaks library
+#   (https://github.com/azealyx/win10-postinstall-alyx)
+#   Author: Azealyx <itsazealyx@gmail.com>
+#   Version: v0.2a, 2022-11-25
+#
+#   Original author: Disassembler <disassembler@dasm.cz>
+#   Cloned from: https://github.com/Disassembler0/Win10-Initial-Setup-Script
+# -
 
 ##########
 #region Privacy Tweaks
