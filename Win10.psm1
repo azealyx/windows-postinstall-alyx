@@ -1675,6 +1675,28 @@ Function DisableTitleBarColor {
 }
 
 
+# Enable taskbar accent color according to prevalent background color
+Function EnableTaskbarColor {
+	$val = Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme"
+	if($val.SystemUsesLightTheme -ne 1) {
+		Write-Output "Enabling taskbar accent color..."
+		if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize")) {
+			New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Force | Out-Null
+		}
+		Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "ColorPrevalence" -Type DWord -Value 1
+	}
+}
+
+# Disable taskbar accent color
+Function DisableTaskbarColor {
+	Write-Output "Disabling taskbar accent color..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "ColorPrevalence" -Type DWord -Value 0
+}
+
+
 # Adjusts visual effects based on standard preferences
 Function SetVisualFXStandard {
 	Write-Output "Adjusts visual effects based on standard preferences..."
