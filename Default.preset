@@ -23,24 +23,24 @@ RequireAdmin
 # DisableActivityHistory        # EnableActivityHistory
 
 ###  UWP App Permissions  ###
-# DisableLocation               # EnableLocation
-# DisableCamera                 # EnableCamera
-# DisableMicrophone             # EnableMicrophone
-# DisableUWPVoiceActivation     # EnableUWPVoiceActivation
-# DisableUWPNotifications       # EnableUWPNotifications
-# DisableUWPAccountInfo         # EnableUWPAccountInfo
-# DisableUWPContacts            # EnableUWPContacts
-# DisableUWPCalendar            # EnableUWPCalendar
-# DisableUWPPhoneCalls          # EnableUWPPhoneCalls
-# DisableUWPCallHistory         # EnableUWPCallHistory
-# DisableUWPEmail               # EnableUWPEmail
-# DisableUWPTasks               # EnableUWPTasks
-# DisableUWPMessaging           # EnableUWPMessaging
-# DisableUWPRadios              # EnableUWPRadios
-# DisableUWPOtherDevices        # EnableUWPOtherDevices
-# DisableUWPBackgroundApps      # EnableUWPBackgroundApps
-# DisableUWPDiagInfo            # EnableUWPDiagInfo
-# DisableUWPFileSystem          # EnableUWPFileSystem
+# DisablePermsLocation          # EnablePermsLocation
+# DisablePermsCamera            # EnablePermsCamera
+# DisablePermsMicrophone        # EnablePermsMicrophone
+# DisablePermsVoiceActivation   # EnablePermsVoiceActivation
+# DisablePermsNotifications     # EnablePermsNotifications
+# DisablePermsAccountInfo       # EnablePermsAccountInfo
+# DisablePermsContacts          # EnablePermsContacts
+# DisablePermsCalendar          # EnablePermsCalendar
+# DisablePermsPhoneCalls        # EnablePermsPhoneCalls
+# DisablePermsCallHistory       # EnablePermsCallHistory
+# DisablePermsEmail             # EnablePermsEmail
+# DisablePermsTasks             # EnablePermsTasks
+# DisablePermsMessaging         # EnablePermsMessaging
+# DisablePermsRadios            # EnablePermsRadios
+# DisablePermsOtherDevices      # EnablePermsOtherDevices
+# DisablePermsBackgroundApps    # EnablePermsBackgroundApps
+# DisablePermsDiagInfo          # EnablePermsDiagInfo
+# DisablePermsFileSystem        # EnablePermsFileSystem
 # DisableUWPSwapFile            # EnableUWPSwapFile
 
 ###  Updates & Security  ###
@@ -50,7 +50,7 @@ RequireAdmin
 # DisableAutoRestartSignOn      # EnableAutoRestartSignOn
 # DisableUpdateMSRT             # EnableUpdateMSRT
 # DisableUpdateDriver           # EnableUpdateDriver
-# SetP2PUpdateLocal             # SetP2PUpdateInternet          # SetP2PUpdateDisable
+# SetP2PUpdateLocal             # SetP2PUpdateInternet
 # DisableDefender               # EnableDefender
 # DisableDefenderCloud          # EnableDefenderCloud
 # EnableCtrldFolderAccess       # DisableCtrldFolderAccess
@@ -95,7 +95,7 @@ RequireAdmin
 # SetSystemLightMode            # SetSystemDarkMode
 # SetAppsDarkMode               # SetAppsLightMode
 # EnableTitleBarColor           # DisableTitleBarColor
-# SetVisualFXPerformance        # SetVisualFXAppearance
+# SetVisualFXStandard           # SetVisualFXAppearance         # SetVisualFXPerformance
 # DisableLockScreenBlur         # EnableLockScreenBlur
 # HideNetworkFromLockScreen     # ShowNetworkOnLockScreen
 # HideShutdownFromLockScreen    # ShowShutdownOnLockScreen
@@ -177,7 +177,8 @@ RequireAdmin
 # DisableNTFSLastAccess         # EnableNTFSLastAccess
 
 ###  System & Devices  ###
-# DisableSleepTimeout           # EnableSleepTimeout
+# SetDisplayTimeoutStandard     # SetDisplayTimeoutExtended     # SetDisplayTimeoutNever
+# SetSleepTimeoutStandard       # SetSleepTimeoutExtended       # SetSleepTimeoutNever
 # DisableSleepButton            # EnableSleepButton
 # DisableFastStartup            # EnableFastStartup
 # EnableHibernation             # DisableHibernation
@@ -189,7 +190,7 @@ RequireAdmin
 # DisableDefragmentation        # EnableDefragmentation
 # DisableSharedExperiences      # EnableSharedExperiences
 # EnableClipboardHistory        # DisableClipboardHistory
-# DisableMediaSharing           # EnableMediaSharing
+# DisableMediaStreaming         # EnableMediaStreaming
 # DisableMediaOnlineAccess      # EnableMediaOnlineAccess
 # DisableRemoteAssistance       # EnableRemoteAssistance
 # EnableRemoteDesktop           # DisableRemoteDesktop
@@ -213,7 +214,6 @@ RequireAdmin
 # DisableCortana                # EnableCortana
 # DisableActionCenter           # EnableActionCenter
 # DisableLockScreen             # EnableLockScreen
-# DisableLockScreenRS1          # EnableLockScreenRS1
 # UninstallMsftBloat            # InstallMsftBloat
 # UninstallThirdPartyBloat      # InstallThirdPartyBloat
 # DisableXboxFeatures           # EnableXboxFeatures
@@ -225,8 +225,7 @@ RequireAdmin
 # UninstallOneDrive             # InstallOneDrive
 # SetPhotoViewerAssociation     # UnsetPhotoViewerAssociation
 # AddPhotoViewerOpenWith        # RemovePhotoViewerOpenWith
-# Hide3DObjectsFromThisPC       # Show3DObjectsInThisPC
-# Hide3DObjectsFromExplorer     # Show3DObjectsInExplorer
+# Hide3DObjects                 # Show3DObjects
 # DisableAdobeFlash             # EnableAdobeFlash
 # DisableEdgePreload            # EnableEdgePreload
 # DisableEdgeShortcutCreation   # EnableEdgeShortcutCreation
