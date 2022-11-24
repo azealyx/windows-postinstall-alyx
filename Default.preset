@@ -154,6 +154,7 @@ RequireAdmin
 # HideVideosFromExplorer        # ShowVideosInExplorer
 # HideNetworkFromExplorer       # ShowNetworkInExplorer
 # HideEditWithPaint3DMenu       # ShowEditWithPaint3DMenu
+# HidePrintCMDMenu              # ShowPrintCMDMenu
 # HideShareMenu                 # ShowShareMenu
 # HideGiveAccessToMenu          # ShowGiveAccessToMenu
 # HideIncludeInLibraryMenu      # ShowIncludeInLibraryMenu
