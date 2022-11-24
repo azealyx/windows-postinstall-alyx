@@ -1144,6 +1144,22 @@ Function EnableSmartScreen {
 }
 
 
+# Hide Smart Screen filter warning in Defender
+Function HideSmartScreenWarn {
+	Write-Output "Hiding Smart Screen filter warning..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows Security Health\State")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows Security Health\State" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows Security Health\State" -Name "AppAndBrowser_EdgeSmartScreenOff" -Type DWord -Value 0
+}
+
+# Show Smart Screen filter warning in Defender
+Function ShowSmartScreenWarn {
+	Write-Output "Showing Smart Screen filter warning..."
+	Remove-ItemProperty "HKCU:\Software\Microsoft\Windows Security Health\State" -Name "AppAndBrowser_EdgeSmartScreenOff" -ErrorAction SilentlyContinue
+}
+
+
 # Enable Windows Defender Application Guard - Applicable since 1709 Enterprise and 1803 Pro. Not applicable to Server
 # Not supported on VMs and VDI environment. Check requirements on https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-guard/reqs-wd-app-guard
 Function EnableDefenderAppGuard {

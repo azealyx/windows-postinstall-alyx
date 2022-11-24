@@ -65,6 +65,7 @@ RequireAdmin
 # EnableMeltdownCompatFlag      # DisableMeltdownCompatFlag
 # DisableFirewall               # EnableFirewall
 # DisableSmartScreen            # EnableSmartScreen
+# HideSmartScreenWarn           # ShowSmartScreenWarn
 # EnableDefenderAppGuard        # DisableDefenderAppGuard
 # SetDEPOptOut                  # SetDEPOptIn
 # EnableCIMemoryIntegrity       # DisableCIMemoryIntegrity
