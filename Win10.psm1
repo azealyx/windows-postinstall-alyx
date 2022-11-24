@@ -3095,6 +3095,31 @@ Function ShowIncludeInLibraryMenu {
 }
 
 
+# Hide 'Restore previous versions' context menu item
+Function HidePreviousVersionsMenu {
+	Write-Output "Hiding 'Restore previous versions' context menu item..."
+	if (!(Test-Path "HKCR:")) {
+		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
+	}
+	Remove-Item -Path "HKCR:\AllFilesystemObjects\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -ErrorAction SilentlyContinue | Out-Null
+	Remove-Item -Path "HKCR:\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -ErrorAction SilentlyContinue | Out-Null
+	Remove-Item -Path "HKCR:\Directory\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -ErrorAction SilentlyContinue | Out-Null
+	Remove-Item -Path "HKCR:\Drive\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -ErrorAction SilentlyContinue | Out-Null
+}
+
+# Show 'Restore previous versions' context menu item
+Function ShowPreviousVersionsMenu {
+	Write-Output "Showing 'Restore previous versions' context menu item..."
+	if (!(Test-Path "HKCR:")) {
+		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
+	}
+	New-Item -Path "HKCR:\AllFilesystemObjects\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -ErrorAction SilentlyContinue | Out-Null
+	New-Item -Path "HKCR:\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -ErrorAction SilentlyContinue | Out-Null
+	New-Item -Path "HKCR:\Directory\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -ErrorAction SilentlyContinue | Out-Null
+	New-Item -Path "HKCR:\Drive\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153}" -ErrorAction SilentlyContinue | Out-Null
+}
+
+
 # Show Task Manager details - Applicable since 1607
 # Although this functionality exist even in earlier versions, the Task Manager's behavior is different there and is not compatible with this tweak
 Function ShowTaskManagerDetails {
