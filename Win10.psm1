@@ -2484,6 +2484,22 @@ Function HideDesktopIcons {
 }
 
 
+# Set JPEG wallpaper to standard quality
+Function SetWallpaperQualitySD {
+	Write-Output "Setting JPEG wallpaper to standard quality..."
+	Remove-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name JPEGImportQuality -Force -ErrorAction SilentlyContinue
+}
+
+# Set JPEG wallpaper to high quality
+Function SetWallpaperQualityHD {
+	Write-Output "Setting JPEG wallpaper to high quality..."
+	if (!(Test-Path "HKCU:\Control Panel\Desktop")) {
+		New-Item -Path "HKCU:\Control Panel\Desktop" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "JPEGImportQuality" -Type DWord -Value 100
+}
+
+
 # Hide shortcut icon arrow
 Function HideShortcutArrow {
 	Write-Output "Hiding shortcut icon arrow..."

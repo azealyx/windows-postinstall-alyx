@@ -131,6 +131,7 @@ RequireAdmin
 
 ###  Windows Explorer  ###
 # HideDesktopIcons              # ShowDesktopIcons
+# SetWallpaperQualityHD         # SetWallpaperQualitySD
 # HideShortcutArrow             # ShowShortcutArrow
 # DisableShortcutInName         # EnableShortcutInName
 # ShowThisPCOnDesktop           # HideThisPCFromDesktop
