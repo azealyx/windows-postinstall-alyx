@@ -98,6 +98,7 @@ RequireAdmin
 ###  Personalization  ###
 # SetSystemLightMode            # SetSystemDarkMode
 # SetAppsDarkMode               # SetAppsLightMode
+# DisableTransparency           # EnableTransparency
 # EnableTitleBarColor           # DisableTitleBarColor
 # SetVisualFXStandard           # SetVisualFXAppearance         # SetVisualFXPerformance
 # DisableLockScreenBlur         # EnableLockScreenBlur

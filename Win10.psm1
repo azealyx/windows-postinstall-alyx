@@ -1637,6 +1637,25 @@ Function SetAppsDarkMode {
 }
 
 
+# Enable transparency effects
+Function DisableTransparency {
+	Write-Output "Disabling transparency effects..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "EnableTransparency" -Type DWord -Value 0
+}
+
+# Enable transparency effects
+Function EnableTransparency {
+	Write-Output "Enabling transparency effects..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "EnableTransparency" -Type DWord -Value 1
+}
+
+
 # Enable window title bar color according to prevalent background color
 Function EnableTitleBarColor {
 	Write-Output "Enabling window title bar accent color..."
