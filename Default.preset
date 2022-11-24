@@ -19,6 +19,7 @@ RequireAdmin
 # DisableWAPPush                # EnableWAPPush
 # DisableAdvertisingID          # EnableAdvertisingID
 # DisableWebLangList            # EnableWebLangList
+# DisableAppLaunchTrack         # EnableAppLaunchTrack
 # DisableTailoredExperiences    # EnableTailoredExperiences
 # DisableErrorReporting         # EnableErrorReporting
 # DisableActivityHistory        # EnableActivityHistory

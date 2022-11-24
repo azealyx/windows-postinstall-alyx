@@ -281,6 +281,25 @@ Function EnableWebLangList {
 }
 
 
+# Disable App Launch Tracking
+Function DisableAppLaunchTrack {
+	Write-Output "Disabling App Launch Tracking..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackProgs" -Type DWord -Value 0
+}
+
+# Enable App Launch Tracking
+Function EnableAppLaunchTrack {
+	Write-Output "Enabling App Launch Tracking..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackProgs" -Type DWord -Value 1
+}
+
+
 # Disable Tailored Experiences
 Function DisableTailoredExperiences {
 	Write-Output "Disabling Tailored Experiences..."
