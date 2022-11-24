@@ -976,6 +976,21 @@ Function DisableCtrldFolderAccess {
 }
 
 
+# Disable Require Sign-in on Wakeup
+Function DisableWakeUpSignIn {
+	Write-Output "Disabling Require Sign-in on Wakeup..."
+	powercfg /SETACVALUEINDEX SCHEME_CURRENT SUB_NONE CONSOLELOCK 0 | Out-Null
+	powercfg /SETDCVALUEINDEX SCHEME_CURRENT SUB_NONE CONSOLELOCK 0 | Out-Null
+}
+
+# Enable Require Sign-in on Wakeup
+Function EnableWakeUpSignIn {
+	Write-Output "Enabling Require Sign-in on Wakeup..."
+	powercfg /SETACVALUEINDEX SCHEME_CURRENT SUB_NONE CONSOLELOCK 1 | Out-Null
+	powercfg /SETDCVALUEINDEX SCHEME_CURRENT SUB_NONE CONSOLELOCK 1 | Out-Null
+}
+
+
 # Hide Account Protection warning in Defender about not using a Microsoft account
 Function HideAccountProtectionWarn {
 	Write-Output "Hiding Account Protection warning..."
