@@ -153,6 +153,7 @@ RequireAdmin
 # HidePicturesFromExplorer      # ShowPicturesInExplorer
 # HideVideosFromExplorer        # ShowVideosInExplorer
 # HideNetworkFromExplorer       # ShowNetworkInExplorer
+# HideEditWithPaint3DMenu       # ShowEditWithPaint3DMenu
 # HideShareMenu                 # ShowShareMenu
 # HideGiveAccessToMenu          # ShowGiveAccessToMenu
 # HideIncludeInLibraryMenu      # ShowIncludeInLibraryMenu

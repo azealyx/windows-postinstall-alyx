@@ -2961,6 +2961,47 @@ Function ShowNetworkInExplorer {
 }
 
 
+# Hide 'Edit with Paint 3D' context menu item
+Function HideEditWithPaint3DMenu {
+	Write-Output "Hiding 'Edit with Paint 3D' context menu item..."
+	if (!(Test-Path "HKCR:")) {
+		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
+	}
+	New-Item -Path "HKCR:\SystemFileAssociations\.bmp\Shell\3D Edit" -ErrorAction SilentlyContinue | Out-Null
+	New-Item -Path "HKCR:\SystemFileAssociations\.gif\Shell\3D Edit" -ErrorAction SilentlyContinue | Out-Null
+	New-Item -Path "HKCR:\SystemFileAssociations\.jpe\Shell\3D Edit" -ErrorAction SilentlyContinue | Out-Null
+	New-Item -Path "HKCR:\SystemFileAssociations\.jpeg\Shell\3D Edit" -ErrorAction SilentlyContinue | Out-Null
+	New-Item -Path "HKCR:\SystemFileAssociations\.jpg\Shell\3D Edit" -ErrorAction SilentlyContinue | Out-Null
+	New-Item -Path "HKCR:\SystemFileAssociations\.png\Shell\3D Edit" -ErrorAction SilentlyContinue | Out-Null
+	New-Item -Path "HKCR:\SystemFileAssociations\.tif\Shell\3D Edit" -ErrorAction SilentlyContinue | Out-Null
+	New-Item -Path "HKCR:\SystemFileAssociations\.tiff\Shell\3D Edit" -ErrorAction SilentlyContinue | Out-Null
+	Set-ItemProperty -Path "HKCR:\SystemFileAssociations\.bmp\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -Type String -Value ""
+	Set-ItemProperty -Path "HKCR:\SystemFileAssociations\.gif\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -Type String -Value ""
+	Set-ItemProperty -Path "HKCR:\SystemFileAssociations\.jpe\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -Type String -Value ""
+	Set-ItemProperty -Path "HKCR:\SystemFileAssociations\.jpeg\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -Type String -Value ""
+	Set-ItemProperty -Path "HKCR:\SystemFileAssociations\.jpg\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -Type String -Value ""
+	Set-ItemProperty -Path "HKCR:\SystemFileAssociations\.png\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -Type String -Value ""
+	Set-ItemProperty -Path "HKCR:\SystemFileAssociations\.tif\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -Type String -Value ""
+	Set-ItemProperty -Path "HKCR:\SystemFileAssociations\.tiff\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -Type String -Value ""
+}
+
+# Show 'Edit with Paint 3D' context menu item
+Function ShowEditWithPaint3DMenu {
+	Write-Output "Showing 'Edit with Paint 3D' context menu item..."
+	if (!(Test-Path "HKCR:")) {
+		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
+	}
+	Remove-ItemProperty -Path "HKCR:\SystemFileAssociations\.bmp\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -ErrorAction SilentlyContinue | Out-Null
+	Remove-ItemProperty -Path "HKCR:\SystemFileAssociations\.gif\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -ErrorAction SilentlyContinue | Out-Null
+	Remove-ItemProperty -Path "HKCR:\SystemFileAssociations\.jpe\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -ErrorAction SilentlyContinue | Out-Null
+	Remove-ItemProperty -Path "HKCR:\SystemFileAssociations\.jpeg\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -ErrorAction SilentlyContinue | Out-Null
+	Remove-ItemProperty -Path "HKCR:\SystemFileAssociations\.jpg\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -ErrorAction SilentlyContinue | Out-Null
+	Remove-ItemProperty -Path "HKCR:\SystemFileAssociations\.png\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -ErrorAction SilentlyContinue | Out-Null
+	Remove-ItemProperty -Path "HKCR:\SystemFileAssociations\.tif\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -ErrorAction SilentlyContinue | Out-Null
+	Remove-ItemProperty -Path "HKCR:\SystemFileAssociations\.tiff\Shell\3D Edit" -Name "ProgrammaticAccessOnly" -ErrorAction SilentlyContinue | Out-Null
+}
+
+
 # Hide 'Share' context menu item. Applicable since 1709
 Function HideShareMenu {
 	Write-Output "Hiding 'Share' context menu item..."
