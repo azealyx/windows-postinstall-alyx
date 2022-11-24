@@ -159,6 +159,7 @@ RequireAdmin
 # HideGiveAccessToMenu          # ShowGiveAccessToMenu
 # HideIncludeInLibraryMenu      # ShowIncludeInLibraryMenu
 # HidePreviousVersionsMenu      # ShowPreviousVersionsMenu
+# HideCreateANewVideoMenu       # ShowCreateANewVideoMenu
 # ShowTaskManagerDetails        # HideTaskManagerDetails
 # ShowFileOperationsDetails     # HideFileOperationsDetails
 # EnableFileDeleteConfirm       # DisableFileDeleteConfirm

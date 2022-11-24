@@ -3120,6 +3120,26 @@ Function ShowPreviousVersionsMenu {
 }
 
 
+# Hide 'Create a new video' context menu item
+Function HideCreateANewVideoMenu {
+	Write-Output "Hiding 'Create a new video' context menu item..."
+	if (!(Test-Path "HKCR:")) {
+		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
+	}
+	New-Item -Path "HKCR:\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc\Shell\ShellCreateVideo" -ErrorAction SilentlyContinue | Out-Null
+	Set-ItemProperty -Path "HKCR:\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc\Shell\ShellCreateVideo" -Name "ProgrammaticAccessOnly" -Type String -Value ""
+}
+
+# Show 'Create a new video' context menu item
+Function ShowCreateANewVideoMenu {
+	Write-Output "Showing 'Create a new video' context menu item..."
+	if (!(Test-Path "HKCR:")) {
+		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
+	}
+	Remove-ItemProperty -Path "HKCR:\AppX43hnxtbyyps62jhe9sqpdzxn1790zetc\Shell\ShellCreateVideo" -Name "ProgrammaticAccessOnly" -ErrorAction SilentlyContinue | Out-Null
+}
+
+
 # Show Task Manager details - Applicable since 1607
 # Although this functionality exist even in earlier versions, the Task Manager's behavior is different there and is not compatible with this tweak
 Function ShowTaskManagerDetails {
