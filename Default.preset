@@ -122,7 +122,12 @@ RequireAdmin
 # ShowTrayIcons                 # HideTrayIcons
 # ShowSecondsInTaskbar          # HideSecondsFromTaskbar
 # HideTaskbarPeopleIcon         # ShowTaskbarPeopleIcon
+# HideTaskbarNewsInterests      # HideTaskbarNewsInterests
+# HideInkWorkspaceIcon          # ShowInkWorkspaceIcon
+# HideTouchKeyboardIcon         # HideTouchKeyboardIcon
+# HideBluetoothTrayIcon         # ShowBluetoothTrayIcon
 # HideDefenderTrayIcon          # ShowDefenderTrayIcon
+# HideMeetNowTrayIcon           # ShowMeetNowTrayIcon
 
 ###  Windows Explorer  ###
 # HideDesktopIcons              # ShowDesktopIcons

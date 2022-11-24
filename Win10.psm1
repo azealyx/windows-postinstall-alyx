@@ -2317,6 +2317,79 @@ Function ShowTaskbarPeopleIcon {
 }
 
 
+# Hide News and Interests on the taskbar
+Function HideTaskbarNewsInterests {
+	Write-Output "Hiding News and Interests on the taskbar..."
+	if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" -Name "EnableFeeds" -Type DWord -Value 0
+}
+
+# Show News and Interests on the taskbar
+Function ShowTaskbarNewsInterests {
+	Write-Output "Showing News and Interests on the taskbar..."
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" -Name "EnableFeeds" -ErrorAction SilentlyContinue
+}
+
+
+# Hide Windows Ink Workspace icon
+Function HideInkWorkspaceIcon {
+	Write-Output "Hiding Windows Ink Workspace icon..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PenWorkspace")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PenWorkspace" | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PenWorkspace" -Name "PenWorkspaceButtonDesiredVisibility" -Type DWord -Value 0
+}
+
+# Show Windows Ink Workspace icon
+Function ShowInkWorkspaceIcon {
+	Write-Output "Showing Windows Ink Workspace icon..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PenWorkspace")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PenWorkspace" | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PenWorkspace" -Name "PenWorkspaceButtonDesiredVisibility" -Type DWord -Value 1
+}
+
+
+# Hide Touch Keyboard icon
+Function HideTouchKeyboardIcon {
+	Write-Output "Hiding Touch Keyboard icon..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\TabletTip\1.7")) {
+		New-Item -Path "HKCU:\Software\Microsoft\TabletTip\1.7" | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\TabletTip\1.7" -Name "TipbandDesiredVisibility" -Type DWord -Value 0
+}
+
+# Show Touch Keyboard icon
+Function ShowTouchKeyboardIcon {
+	Write-Output "Showing Touch Keyboard icon..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\TabletTip\1.7")) {
+		New-Item -Path "HKCU:\Software\Microsoft\TabletTip\1.7" | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\TabletTip\1.7" -Name "TipbandDesiredVisibility" -Type DWord -Value 1
+}
+
+
+# Hide Bluetooth tray icon
+Function HideBluetoothTrayIcon {
+	Write-Output "Hiding Bluetooth tray icon..."
+	if (!(Test-Path "HKCU:\Control Panel\Bluetooth")) {
+		New-Item -Path "HKCU:\Control Panel\Bluetooth" | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Control Panel\Bluetooth" -Name "Notification Area Icon" -Type DWord -Value 0
+}
+
+# Show Bluetooth tray icon
+Function ShowBluetoothTrayIcon {
+	Write-Output "Showing Bluetooth tray icon..."
+	if (!(Test-Path "HKCU:\Control Panel\Bluetooth")) {
+		New-Item -Path "HKCU:\Control Panel\Bluetooth" | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Control Panel\Bluetooth" -Name "Notification Area Icon" -Type DWord -Value 1
+}
+
+
 # Hide Windows Defender SysTray icon
 Function HideDefenderTrayIcon {
 	Write-Output "Hiding Windows Defender SysTray icon..."
@@ -2347,6 +2420,39 @@ Function ShowDefenderTrayIcon {
 	} elseif ([System.Environment]::OSVersion.Version.Build -ge 17763) {
 		Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "SecurityHealth" -Type ExpandString -Value "%windir%\system32\SecurityHealthSystray.exe"
 	}
+}
+
+
+# Hide Meet Now tray icon
+Function HideMeetNowTrayIcon {
+	Write-Output "Hiding Meet Now tray icon..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideSCAMeetNow" -Type DWord -Value 1
+
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3" | Out-Null
+	}
+	$MeetNowSettings = Get-ItemPropertyValue -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3 -Name Settings -ErrorAction Ignore
+	$MeetNowSettings[9] = 128
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3" -Name "Settings" -Type Binary -Value $MeetNowSettings
+}
+
+# Show Meet Now tray icon
+Function ShowMeetNowTrayIcon {
+	Write-Output "Showing Meet Now tray icon..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideSCAMeetNow" -Type DWord -Value 0
+
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3" | Out-Null
+	}
+	$MeetNowSettings = Get-ItemPropertyValue -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3 -Name Settings -ErrorAction Ignore
+	$MeetNowSettings[9] = 0
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3" -Name "Settings" -Type Binary -Value $MeetNowSettings
 }
 
 ##########
