@@ -15,6 +15,7 @@ RequireAdmin
 # DisableTelemetry              # EnableTelemetry
 # DisableFeedback               # EnableFeedback
 # DisableDiagTrack              # EnableDiagTrack
+# DisableDiagHub                # EnableDiagHub
 # DisableWAPPush                # EnableWAPPush
 # DisableAdvertisingID          # EnableAdvertisingID
 # DisableWebLangList            # EnableWebLangList
