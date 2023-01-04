@@ -233,6 +233,7 @@ RequireAdmin
 # DisableLockScreen             # EnableLockScreen
 # UninstallMsftBloat            # InstallMsftBloat
 # UninstallThirdPartyBloat      # InstallThirdPartyBloat
+# DisableXboxTips               # EnableXboxTips
 # DisableXboxFeatures           # EnableXboxFeatures
 # DisableSearchAppInStore       # EnableSearchAppInStore
 # DisableNewAppPrompt           # EnableNewAppPrompt

@@ -4833,6 +4833,23 @@ Function InstallThirdPartyBloat {
 }
 
 
+# Disable Xbox tips - Not applicable to Server
+Function DisableXboxTips {
+	Write-Output "Disabling Xbox Game Bar tips..."
+	if ((Get-AppxPackage -Name Microsoft.XboxGamingOverlay) -or (Get-AppxPackage -Name Microsoft.GamingApp)) {
+		Set-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "ShowStartupPanel" -Type DWord -Value 0
+	}
+}
+
+# Enable Xbox tips - Not applicable to Server
+Function EnableXboxTips {
+	Write-Output "Enabling Xbox Game Bar tips..."
+	if ((Get-AppxPackage -Name Microsoft.XboxGamingOverlay) -or (Get-AppxPackage -Name Microsoft.GamingApp)) {
+		Set-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "ShowStartupPanel" -Type DWord -Value 1
+	}
+}
+
+
 # Disable Xbox features - Not applicable to Server
 Function DisableXboxFeatures {
 	Write-Output "Disabling Xbox features..."
