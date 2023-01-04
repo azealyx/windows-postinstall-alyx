@@ -52,7 +52,7 @@ RequireAdmin
 # DisableAutoRestartSignOn      # EnableAutoRestartSignOn
 # DisableUpdateMSRT             # EnableUpdateMSRT
 # DisableUpdateDriver           # EnableUpdateDriver
-# SetP2PUpdateLocal             # SetP2PUpdateInternet
+# SetP2PUpdateDisable           # SetP2PUpdateLocal             # SetP2PUpdateInternet
 # DisableDefender               # EnableDefender
 # DisableDefenderCloud          # EnableDefenderCloud
 # EnableCtrldFolderAccess       # DisableCtrldFolderAccess

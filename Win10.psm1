@@ -19,77 +19,81 @@
 # See also https://github.com/Disassembler0/Win10-Initial-Setup-Script/issues/57 and https://github.com/Disassembler0/Win10-Initial-Setup-Script/issues/92
 Function DisableTelemetry {
 	Write-Output "Disabling Telemetry..."
-	if (!(Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection")) {
-		New-Item -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Force | Out-Null
-	}
-	if (!(Test-Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection")) {
-		New-Item -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Force | Out-Null
-	}
-	if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection")) {
-		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Force | Out-Null
-	}
+	# Diagnostic Data Level
+		if (!(Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection")) {
+			New-Item -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Force | Out-Null
+		}
+		if (!(Test-Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection")) {
+			New-Item -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Force | Out-Null
+		}
+		if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection")) {
+			New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Force | Out-Null
+		}
 
-	if (Get-WindowsEdition -Online | Where-Object -FilterScript {$_.Edition -like "Enterprise*" -or $_.Edition -eq "Education"}) {
-		# Security level
-		Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-		Set-ItemProperty -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-	} else {
-		# Required diagnostic data
-		Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 1
-		Set-ItemProperty -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 1
-		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 1
-	}
+		if (Get-WindowsEdition -Online | Where-Object -FilterScript {$_.Edition -like "Enterprise*" -or $_.Edition -eq "Education"}) {
+			# Security level
+			Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
+			Set-ItemProperty -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
+			Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
+		} else {
+			# Required diagnostic data
+			Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 1
+			Set-ItemProperty -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 1
+			Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 1
+		}
 
-	Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "MaxTelemetryAllowed" -Type DWord -Value 1
+		Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "MaxTelemetryAllowed" -Type DWord -Value 1
+		Set-ItemProperty -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "MaxTelemetryAllowed" -Type DWord -Value 1
+		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Name "MaxTelemetryAllowed" -Type DWord -Value 1
 
-	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack")) {
-		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" -Name "ShowedToastAtLevel" -Type DWord -Value 1
+		if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack")) {
+			New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" -Force | Out-Null
+		}
+		Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" -Name "ShowedToastAtLevel" -Type DWord -Value 1
 
-	if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\PreviewBuilds")) {
-		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\PreviewBuilds" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\PreviewBuilds" -Name "AllowBuildPreview" -Type DWord -Value 0
+	# KMS Client Online AVS Validation
+		if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform")) {
+			New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" -Force | Out-Null
+		}
+		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" -Name "NoGenTicket" -Type DWord -Value 1
 
-	if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform")) {
-		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" -Name "NoGenTicket" -Type DWord -Value 1
+	# Customer Experience Improvement Program
+		if (!(Test-Path "HKLM:\Software\Policies\Microsoft\SQMClient\Windows")) {
+			New-Item -Path "HKLM:\Software\Policies\Microsoft\SQMClient\Windows" -Force | Out-Null
+		}
+		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\SQMClient\Windows" -Name "CEIPEnable" -Type DWord -Value 0
 
-	if (!(Test-Path "HKLM:\Software\Policies\Microsoft\SQMClient\Windows")) {
-		New-Item -Path "HKLM:\Software\Policies\Microsoft\SQMClient\Windows" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\SQMClient\Windows" -Name "CEIPEnable" -Type DWord -Value 0
+		if (!(Test-Path "HKLM:\Software\Policies\Microsoft\AppV\CEIP")) {
+			New-Item -Path "HKLM:\Software\Policies\Microsoft\AppV\CEIP" -Force | Out-Null
+		}
+		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\AppV\CEIP" -Name "CEIPEnable" -Type DWord -Value 0
 
-	if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\AppCompat")) {
-		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\AppCompat" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppCompat" -Name "AITEnable" -Type DWord -Value 0
-	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppCompat" -Name "DisableInventory" -Type DWord -Value 1
+	# Application Telemetry
+		if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\AppCompat")) {
+			New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\AppCompat" -Force | Out-Null
+		}	
+		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppCompat" -Name "AITEnable" -Type DWord -Value 0
+		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppCompat" -Name "DisableInventory" -Type DWord -Value 1
 
-	if (!(Test-Path "HKLM:\Software\Policies\Microsoft\AppV\CEIP")) {
-		New-Item -Path "HKLM:\Software\Policies\Microsoft\AppV\CEIP" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\AppV\CEIP" -Name "CEIPEnable" -Type DWord -Value 0
+	# Handwriting personalization data sharing
+		if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC")) {
+			New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Force | Out-Null
+		}
+		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -Type DWord -Value 1
 
-	if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC")) {
-		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -Type DWord -Value 1
+	# Improve inking and typing recognition
+		if (!(Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\TextInput")) {
+			New-Item -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\TextInput" -Force | Out-Null
+		}
+		Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\TextInput" -Name "AllowLinguisticDataCollection" -Type DWord -Value 0
 
-	if (!(Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\TextInput")) {
-		New-Item -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\TextInput" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\TextInput" -Name "AllowLinguisticDataCollection" -Type DWord -Value 0
-
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" | Out-Null
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\ProgramDataUpdater" | Out-Null
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\Autochk\Proxy" | Out-Null
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" | Out-Null
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" | Out-Null
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" | Out-Null
+	# Scheduled Tasks
+	Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" -ErrorAction SilentlyContinue | Out-Null
+	Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\ProgramDataUpdater" -ErrorAction SilentlyContinue | Out-Null
+	Disable-ScheduledTask -TaskName "Microsoft\Windows\Autochk\Proxy" -ErrorAction SilentlyContinue | Out-Null
+	Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" -ErrorAction SilentlyContinue | Out-Null
+	Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" -ErrorAction SilentlyContinue | Out-Null
+	Disable-ScheduledTask -TaskName "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" -ErrorAction SilentlyContinue | Out-Null
 
 	# Office 2016 / 2019
 	Disable-ScheduledTask -TaskName "Microsoft\Office\Office ClickToRun Service Monitor" -ErrorAction SilentlyContinue | Out-Null
@@ -109,50 +113,54 @@ Function DisableTelemetry {
 # Enable Telemetry
 Function EnableTelemetry {
 	Write-Output "Enabling Telemetry..."
-	if (!(Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection")) {
-		New-Item -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Force | Out-Null
-	}
-	if (!(Test-Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection")) {
-		New-Item -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Force | Out-Null
-	}
-	if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection")) {
-		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Force | Out-Null
-	}
+	# DiagnosticDataLevel
+		if (!(Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection")) {
+			New-Item -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Force | Out-Null
+		}
+		if (!(Test-Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection")) {
+			New-Item -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Force | Out-Null
+		}
+		if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection")) {
+			New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Force | Out-Null
+		}
 
-	if (Get-WindowsEdition -Online | Where-Object -FilterScript {$_.Edition -like "Enterprise*" -or $_.Edition -eq "Education"}) {
-		# Security level
-		Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-		Set-ItemProperty -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
-	} else {
-		# Required diagnostic data
-		Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 3
-		Set-ItemProperty -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 3
-		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 3
-	}
+		Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -ErrorAction SilentlyContinue
+		Remove-ItemProperty -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -ErrorAction SilentlyContinue
+		Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -ErrorAction SilentlyContinue
 
-	Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "MaxTelemetryAllowed" -Type DWord -Value 3
+		Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "MaxTelemetryAllowed" -Type DWord -Value 3
+		Set-ItemProperty -Path "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "MaxTelemetryAllowed" -Type DWord -Value 3
+		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" -Name "MaxTelemetryAllowed" -Type DWord -Value 3
 
-	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack")) {
-		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" -Name "ShowedToastAtLevel" -Type DWord -Value 3
+		if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack")) {
+			New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" -Force | Out-Null
+		}
+		Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" -Name "ShowedToastAtLevel" -Type DWord -Value 3
 
-	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\PreviewBuilds" -Name "AllowBuildPreview" -ErrorAction SilentlyContinue
+	# KMS Client Online AVS Validation
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" -Name "NoGenTicket" -ErrorAction SilentlyContinue
+
+	# Customer Experience Improvement Program
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\SQMClient\Windows" -Name "CEIPEnable" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\AppV\CEIP" -Name "CEIPEnable" -ErrorAction SilentlyContinue
+
+	# Application Telemetry
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppCompat" -Name "AITEnable" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppCompat" -Name "DisableInventory" -ErrorAction SilentlyContinue
-	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\AppV\CEIP" -Name "CEIPEnable" -ErrorAction SilentlyContinue
+
+	# Handwriting personalization data sharing
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -ErrorAction SilentlyContinue
+
+	# Improve inking and typing recognition
 	Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\TextInput" -Name "AllowLinguisticDataCollection" -ErrorAction SilentlyContinue
 
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" | Out-Null
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\ProgramDataUpdater" | Out-Null
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\Autochk\Proxy" | Out-Null
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" | Out-Null
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" | Out-Null
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" | Out-Null
+	# Scheduled Tasks
+	Enable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" -ErrorAction SilentlyContinue | Out-Null
+	Enable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\ProgramDataUpdater" -ErrorAction SilentlyContinue | Out-Null
+	Enable-ScheduledTask -TaskName "Microsoft\Windows\Autochk\Proxy" -ErrorAction SilentlyContinue | Out-Null
+	Enable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" -ErrorAction SilentlyContinue | Out-Null
+	Enable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" -ErrorAction SilentlyContinue | Out-Null
+	Enable-ScheduledTask -TaskName "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" -ErrorAction SilentlyContinue | Out-Null
 
 	# Office 2016 / 2019
 	Enable-ScheduledTask -TaskName "Microsoft\Office\Office ClickToRun Service Monitor" -ErrorAction SilentlyContinue | Out-Null
@@ -256,12 +264,14 @@ Function DisableAdvertisingID {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\AdvertisingInfo" | Out-Null
 	}
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AdvertisingInfo" -Name "DisabledByGroupPolicy" -Type DWord -Value 1
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AdvertisingInfo" -Name "Enabled" -Type DWord -Value 1
 }
 
 # Enable Advertising ID
 Function EnableAdvertisingID {
 	Write-Output "Enabling Advertising ID..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AdvertisingInfo" -Name "DisabledByGroupPolicy" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AdvertisingInfo" -Name "Enabled" -ErrorAction SilentlyContinue
 }
 
 
@@ -311,21 +321,18 @@ Function DisableTailoredExperiences {
 	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy" -Name "TailoredExperiencesWithDiagnosticDataEnabled" -Type DWord -Value 1
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy" -Name "TailoredExperiencesWithDiagnosticDataEnabled" -Type DWord -Value 0
 }
 
 # Enable Tailored Experiences
 Function EnableTailoredExperiences {
 	Write-Output "Enabling Tailored Experiences..."
-	if (!(Test-Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent")) {
-		New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Name "DisableTailoredExperiencesWithDiagnosticData" -Type DWord -Value 0
+	Remove-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Name "DisableTailoredExperiencesWithDiagnosticData" -ErrorAction SilentlyContinue
 
 	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy" -Name "TailoredExperiencesWithDiagnosticDataEnabled" -Type DWord -Value 0
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy" -Name "TailoredExperiencesWithDiagnosticDataEnabled" -Type DWord -Value 1
 }
 
 
@@ -337,7 +344,7 @@ Function DisableErrorReporting {
 	}
 	Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\Windows Error Reporting" -Name "Disabled" -Type DWord -Value 1
 
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\Windows Error Reporting\QueueReporting" | Out-Null
+	Disable-ScheduledTask -TaskName "Microsoft\Windows\Windows Error Reporting\QueueReporting" -ErrorAction SilentlyContinue | Out-Null
 
 	Stop-Service "WerSvc" -WarningAction SilentlyContinue
 	Set-Service "WerSvc" -StartupType Disabled
@@ -347,7 +354,7 @@ Function DisableErrorReporting {
 Function EnableErrorReporting {
 	Write-Output "Enabling Error reporting..."
 	Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\Windows Error Reporting" -Name "Disabled" -ErrorAction SilentlyContinue
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\Windows Error Reporting\QueueReporting" | Out-Null
+	Enable-ScheduledTask -TaskName "Microsoft\Windows\Windows Error Reporting\QueueReporting" -ErrorAction SilentlyContinue | Out-Null
 
 	Set-Service "WerSvc" -StartupType Manual
 	Start-Service "WerSvc" -WarningAction SilentlyContinue
@@ -814,13 +821,24 @@ Function DisableAutoRestartSignOn {
 		New-Item -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "DisableAutomaticRestartSignOn" -Type DWord -Value 1
+
+	$SID = (Get-CimInstance -ClassName Win32_UserAccount | Where-Object -FilterScript {$_.Name -eq $env:USERNAME}).SID
+
+	if (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\UserARSO\$SID")) {
+		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\UserARSO\$SID" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\UserARSO\$SID" -Name "OptOut" -Type DWord -Value 1
 }
 
 # Enable Automatic Restart Sign-on - Applicable since 1903
 Function EnableAutoRestartSignOn {
 	Write-Output "Enabling Automatic Restart Sign-on..."
 	Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "DisableAutomaticRestartSignOn" -ErrorAction SilentlyContinue
+
+	$SID = (Get-CimInstance -ClassName Win32_UserAccount | Where-Object -FilterScript {$_.Name -eq $env:USERNAME}).SID
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\UserARSO\$SID" -Name "OptOut" -ErrorAction SilentlyContinue
 }
+
 
 
 # Disable offering of Malicious Software Removal Tool through Windows Update
@@ -869,9 +887,34 @@ Function EnableUpdateDriver {
 }
 
 
+# Disable Windows Update P2P delivery optimization
+Function SetP2PUpdateDisable {
+	Write-Output "Disabling Windows Update delivery optimization..."
+	if ([System.Environment]::OSVersion.Version.Build -eq 10240) {
+		# Method used in 1507
+		if (!(Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config")) {
+			New-Item -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" | Out-Null
+		}
+		Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" -Name "DODownloadMode" -Type DWord -Value 1
+	} elseif ([System.Environment]::OSVersion.Version.Build -le 14393) {
+		# Method used in 1511 and 1607
+		if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\DeliveryOptimization")) {
+			New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\DeliveryOptimization" | Out-Null
+		}
+		Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DeliveryOptimization" -Name "DODownloadMode" -Type DWord -Value 1
+	} else {
+		# Method used since 1703
+		Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\DeliveryOptimization" -Name "DODownloadMode" -ErrorAction SilentlyContinue
+	}
+
+	Set-ItemProperty -Path "Registry::HKEY_USERS\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings" -Name "DownloadMode" -Type DWord -Value 0
+}
+
 # Restrict Windows Update P2P delivery optimization to computers in local network - Default since 1703
 Function SetP2PUpdateLocal {
-	Write-Output "Restricting Windows Update P2P optimization to local network..."
+	Write-Output "Setting Windows Update delivery optimization to Local..."
+	Set-ItemProperty -Path "Registry::HKEY_USERS\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings" -Name "DownloadMode" -Type DWord -Value 1
+
 	if ([System.Environment]::OSVersion.Version.Build -eq 10240) {
 		# Method used in 1507
 		if (!(Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config")) {
@@ -892,7 +935,9 @@ Function SetP2PUpdateLocal {
 
 # Unrestrict Windows Update P2P delivery optimization to both local networks and internet - Default in 1507 - 1607
 Function SetP2PUpdateInternet {
-	Write-Output "Unrestricting Windows Update P2P optimization to internet..."
+	Write-Output "Unrestricting Windows Update delivery optimization to Internet..."
+	Set-ItemProperty -Path "Registry::HKEY_USERS\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings" -Name "DownloadMode" -Type DWord -Value 1
+
 	if ([System.Environment]::OSVersion.Version.Build -eq 10240) {
 		# Method used in 1507
 		if (!(Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config")) {
@@ -2523,12 +2568,18 @@ Function DisableShortcutInName {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name "link" -Type Binary -Value ([byte[]](0,0,0,0))
+
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates" -Name "ShortcutNameTemplate" -Type String -Value "%s.lnk" -ErrorAction SilentlyContinue
 }
 
 # Enable adding '- shortcut' to shortcut name
 Function EnableShortcutInName {
 	Write-Output "Enabling adding '- shortcut' to shortcut name..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name "link" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates" -Name "ShortcutNameTemplate" -ErrorAction SilentlyContinue
 }
 
 
@@ -3855,14 +3906,6 @@ Function DisableSuperfetch {
 	Set-Service "SysMain" -StartupType Disabled
 }
 
-
-# Stop and disable Superfetch service
-Function DisableSuperfetch {
-	Write-Output "Stopping and disabling Superfetch service..."
-	Stop-Service "SysMain" -WarningAction SilentlyContinue
-	Set-Service "SysMain" -StartupType Disabled
-}
-
 # Start and enable Superfetch service
 Function EnableSuperfetch {
 	Write-Output "Starting and enabling Superfetch service..."
@@ -3890,13 +3933,13 @@ Function EnableRecycleBin {
 # Disable scheduled defragmentation task
 Function DisableDefragmentation {
 	Write-Output "Disabling scheduled defragmentation..."
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\Defrag\ScheduledDefrag" | Out-Null
+	Disable-ScheduledTask -TaskName "Microsoft\Windows\Defrag\ScheduledDefrag" -ErrorAction SilentlyContinue | Out-Null
 }
 
 # Enable scheduled defragmentation task
 Function EnableDefragmentation {
 	Write-Output "Enabling scheduled defragmentation..."
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\Defrag\ScheduledDefrag" | Out-Null
+	Enable-ScheduledTask -TaskName "Microsoft\Windows\Defrag\ScheduledDefrag" -ErrorAction SilentlyContinue | Out-Null
 }
 
 
@@ -4344,6 +4387,9 @@ Function DisableMapUpdates {
 
 	Stop-Service "MapsBroker" -WarningAction SilentlyContinue # Downloaded Maps Manager
 	Set-Service "MapsBroker" -StartupType Disabled
+
+	Disable-ScheduledTask -TaskName "\Microsoft\Windows\Maps\MapsToastTask" -ErrorAction SilentlyContinue | Out-Null
+	Disable-ScheduledTask -TaskName "\Microsoft\Windows\Maps\MapsUpdateTask" -ErrorAction SilentlyContinue | Out-Null
 }
 
 # Enable automatic Maps updates
@@ -4353,6 +4399,9 @@ Function EnableMapUpdates {
 
 	Set-Service "MapsBroker" -StartupType Automatic
 	Start-Service "MapsBroker" -WarningAction SilentlyContinue # Downloaded Maps Manager
+	
+	Enable-ScheduledTask -TaskName "\Microsoft\Windows\Maps\MapsToastTask" -ErrorAction SilentlyContinue | Out-Null
+	Enable-ScheduledTask -TaskName "\Microsoft\Windows\Maps\MapsUpdateTask" -ErrorAction SilentlyContinue | Out-Null
 }
 
 
