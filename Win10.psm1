@@ -4501,6 +4501,7 @@ Function EnableLockScreen {
 # Uninstall default Microsoft applications
 Function UninstallMsftBloat {
 	Write-Output "Uninstalling default Microsoft applications..."
+	Get-AppxPackage "Clipchamp.Clipchamp" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.3DBuilder" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.BingFinance" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.BingFoodAndDrink" | Remove-AppxPackage
@@ -4531,10 +4532,12 @@ Function UninstallMsftBloat {
 	Get-AppxPackage "Microsoft.OfficeLens" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.OneConnect" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.People" | Remove-AppxPackage
+	Get-AppxPackage "Microsoft.PowerAutomateDesktop" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.Print3D" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.Reader" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.RemoteDesktop" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.SkypeApp" | Remove-AppxPackage
+	Get-AppxPackage "Microsoft.Todos" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.Wallet" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.WindowsFeedbackHub" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.WindowsMaps" | Remove-AppxPackage
@@ -4545,7 +4548,10 @@ Function UninstallMsftBloat {
 	Get-AppxPackage "Microsoft.YourPhone" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.ZuneMusic" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.ZuneVideo" | Remove-AppxPackage
+	Get-AppxPackage "MicrosoftCorporationII.QuickAssist" | Remove-AppxPackage
+	Get-AppxPackage "MicrosoftTeams" | Remove-AppxPackage
 
+	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Clipchamp.Clipchamp" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.3DBuilder" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.BingFinance" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.BingFoodAndDrink" | Remove-AppxProvisionedPackage -Online | Out-Null
@@ -4576,10 +4582,12 @@ Function UninstallMsftBloat {
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.OfficeLens" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.OneConnect" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.People" | Remove-AppxProvisionedPackage -Online | Out-Null
+	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.PowerAutomateDesktop" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.Print3D" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.Reader" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.RemoteDesktop" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.SkypeApp" | Remove-AppxProvisionedPackage -Online | Out-Null
+	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.Todos" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.Wallet" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.WindowsFeedbackHub" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.WindowsMaps" | Remove-AppxProvisionedPackage -Online | Out-Null
@@ -4590,6 +4598,8 @@ Function UninstallMsftBloat {
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.YourPhone" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.ZuneMusic" | Remove-AppxProvisionedPackage -Online | Out-Null
 	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.ZuneVideo" | Remove-AppxProvisionedPackage -Online | Out-Null
+	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "MicrosoftCorporationII.QuickAssist" | Remove-AppxProvisionedPackage -Online | Out-Null
+	Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "MicrosoftTeams" | Remove-AppxProvisionedPackage -Online | Out-Null
 
 	# Get-AppxPackage "Microsoft.Advertising.Xaml" | Remove-AppxPackage # Dependency for microsoft.windowscommunicationsapps, Microsoft.BingWeather
 	# Get-AppxPackage "Microsoft.AppConnector" | Remove-AppxPackage
@@ -4605,6 +4615,7 @@ Function UninstallMsftBloat {
 	# Get-AppxPackage "microsoft.windowscommunicationsapps" | Remove-AppxPackage
 	# Get-AppxPackage "Microsoft.WindowsScan" | Remove-AppxPackage
 	# Get-AppxPackage "Microsoft.WindowsSoundRecorder" | Remove-AppxPackage
+	
 	# Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.Advertising.Xaml" | Remove-AppxProvisionedPackage -Online | Out-Null # Dependency for microsoft.windowscommunicationsapps, Microsoft.BingWeather
 	# Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.AppConnector" | Remove-AppxProvisionedPackage -Online | Out-Null
 	# Get-AppXProvisionedPackage -Online | Where-Object DisplayName -EQ "Microsoft.ConnectivityStore" | Remove-AppxProvisionedPackage -Online | Out-Null
@@ -4624,6 +4635,7 @@ Function UninstallMsftBloat {
 # Install default Microsoft applications
 Function InstallMsftBloat {
 	Write-Output "Installing default Microsoft applications..."
+	Get-AppxPackage -AllUsers "Clipchamp.Clipchamp" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.3DBuilder" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.BingFinance" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.BingFoodAndDrink" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
@@ -4654,12 +4666,13 @@ Function InstallMsftBloat {
 	Get-AppxPackage -AllUsers "Microsoft.OfficeLens" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.OneConnect" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.People" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Get-AppxPackage -AllUsers "Microsoft.PowerAutomateDesktop" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.Print3D" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.Reader" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.RemoteDesktop" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.SkypeApp" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Get-AppxPackage -AllUsers "Microsoft.Todos" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.Wallet" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.Windows.Photos" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.WindowsFeedbackHub" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.WindowsMaps" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.WindowsPhone" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
@@ -4669,7 +4682,10 @@ Function InstallMsftBloat {
 	Get-AppxPackage -AllUsers "Microsoft.YourPhone" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.ZuneMusic" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.ZuneVideo" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	# Get-AppxPackage -AllUsers "Microsoft.Advertising.Xaml" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"} # Dependency for microsoft.windowscommunicationsapps, Microsoft.BingWeather
+	Get-AppxPackage -AllUsers "MicrosoftCorporationII.QuickAssist" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Get-AppxPackage -AllUsers "MicrosoftTeams" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+
+	# Get-AppxPackage -AllUsers "Microsoft.Advertising.Xaml" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"} # Dependency for # microsoft.windowscommunicationsapps, Microsoft.BingWeather
 	# Get-AppxPackage -AllUsers "Microsoft.AppConnector" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	# Get-AppxPackage -AllUsers "Microsoft.ConnectivityStore" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	# Get-AppxPackage -AllUsers "Microsoft.MicrosoftStickyNotes" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
@@ -4677,9 +4693,10 @@ Function InstallMsftBloat {
 	# Get-AppxPackage -AllUsers "Microsoft.Todos" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	# Get-AppxPackage -AllUsers "Microsoft.WebMediaExtensions" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	# Get-AppxPackage -AllUsers "Microsoft.Whiteboard" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	# Get-AppxPackage -AllUsers "Microsoft.Windows.Photos" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	# Get-AppxPackage -AllUsers "Microsoft.WindowsAlarms" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	# Get-AppxPackage -AllUsers "Microsoft.WindowsCamera" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	# Get-AppxPackage -AllUsers "Microsoft.windowscommunicationsapps" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	# Get-AppxPackage -AllUsers "microsoft.windowscommunicationsapps" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	# Get-AppxPackage -AllUsers "Microsoft.WindowsScan" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	# Get-AppxPackage -AllUsers "Microsoft.WindowsSoundRecorder" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 }
