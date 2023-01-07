@@ -2,7 +2,7 @@
 #   Windows 10 Postinstall Script - Tweaks library
 #   (https://github.com/azealyx/win10-postinstall-alyx)
 #   Author: Azealyx <itsazealyx@gmail.com>
-#   Version: v0.2a, 2022-11-25
+#   Version: v0.5, 2022-11-25
 #
 #   Original author: Disassembler <disassembler@dasm.cz>
 #   Cloned from: https://github.com/Disassembler0/Win10-Initial-Setup-Script
