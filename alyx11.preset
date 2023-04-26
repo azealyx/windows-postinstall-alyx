@@ -113,6 +113,7 @@ DisableStartupSound             # EnableStartupSound
 HideRecentlyAddedApps           # ShowRecentlyAddedApps
 HideMostUsedApps                # ShowMostUsedApps
 DisableAppSuggestions           # EnableAppSuggestions
+SetStartLayoutPins              # SetStartLayoutDefault         # SetStartLayoutRecs
 DisableSearchHighlights         # EnableSearchHighlights
 DisableWebSearch                # EnableWebSearch
 ShowLargeTaskbarIcons           # ShowSmallTaskbarIcons

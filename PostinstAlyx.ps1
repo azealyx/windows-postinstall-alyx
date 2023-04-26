@@ -1,6 +1,6 @@
 # -
-#   Windows 10 Postinstall Script - Main execution loop
-#   (https://github.com/azealyx/win10-postinstall-alyx)
+#   Windows Postinstall Script - Main execution loop
+#   (https://github.com/azealyx/windows-postinstall-alyx)
 #   Author: Azealyx <itsazealyx@gmail.com>
 #   Version: v0.8, 2023-04-27
 #

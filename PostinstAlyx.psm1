@@ -2201,6 +2201,37 @@ Function EnableSearchHighlights {
 }
 
 
+# Set Start Layout to Show More Pins
+Function SetStartLayoutPins {
+	Write-Output "Setting Start Layout to Show More Pins..."
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+	}
+
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_Layout" -Type DWord -Value 1
+}
+
+# Set Start Layout to Default setting
+Function SetStartLayoutDefault {
+	Write-Output "Setting Start Layout to Default setting..."
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+	}
+
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_Layout" -Type DWord -Value 0
+}
+
+# Set Start Layout to Show More Recommendations
+Function SetStartLayoutRecs {
+	Write-Output "Setting Start Layout to Show More Recommendations..."
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+	}
+
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_Layout" -Type DWord -Value 2
+}
+
+
 # Disable Web Search in Start Menu
 Function DisableWebSearch {
 	Write-Output "Disabling Bing Search in Start Menu..."
