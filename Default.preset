@@ -234,6 +234,7 @@ DisableCortana                  # EnableCortana
 # DisableLockScreen             # EnableLockScreen
 UninstallMsftBloat              # InstallMsftBloat
 UninstallThirdPartyBloat        # InstallThirdPartyBloat
+# DisableXboxGameBar            # EnableXboxGameBar
 DisableXboxTips                 # EnableXboxTips
 DisableSearchAppInStore         # EnableSearchAppInStore
 # DisableNewAppPrompt           # EnableNewAppPrompt

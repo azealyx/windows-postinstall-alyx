@@ -4580,7 +4580,6 @@ Function UninstallMsftBloat {
 	$AppsList = @(
 		"Clipchamp.Clipchamp",
 		"Microsoft.3DBuilder",
-		"Microsoft.549981C3F5F10",
 		"Microsoft.BingFinance",
 		"Microsoft.BingFoodAndDrink",
 		"Microsoft.BingHealthAndFitness",
@@ -4652,7 +4651,6 @@ Function InstallMsftBloat {
 	$AppsList = @(
 		"Clipchamp.Clipchamp",
 		"Microsoft.3DBuilder",
-		"Microsoft.549981C3F5F10",
 		"Microsoft.BingFinance",
 		"Microsoft.BingFoodAndDrink",
 		"Microsoft.BingHealthAndFitness",
@@ -4857,6 +4855,65 @@ Function InstallThirdPartyBloat {
 	ForEach ($App in $AppsList) {
 		Get-AppxPackage -AllUsers $App | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	}
+}
+
+
+# Disable Xbox Game Bar - Not applicable to Server
+Function DisableXboxGameBar {
+	Write-Output "Disabling Xbox Game Bar..."
+	# Disable Game Bar Tips
+	if ((Get-AppxPackage -Name Microsoft.XboxGamingOverlay) -or (Get-AppxPackage -Name Microsoft.GamingApp)) {
+		Set-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "ShowStartupPanel" -Type DWord -Value 0
+	}
+
+	# Disable Game bar
+	Get-Process -Name GameBar, GameBarFTServer -ErrorAction Ignore | Stop-Process -Force
+	Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage
+
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 0
+
+	if (!(Test-Path -Path "HKCU:\System\GameConfigStore")) {
+		New-Item -Path "HKCU:\System\GameConfigStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
+
+	# Enable Open Game Bar using Xbox button on Game Controller
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\GameBar")) {
+		New-Item -Path "HKCU:\Software\Microsoft\GameBar" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "UseNexusForGameBarEnabled" -Type DWord -Value 0
+}
+
+# Enable Xbox Game Bar - Not applicable to Server
+Function EnableXboxGameBar {
+	Write-Output "Enabling Xbox Game Bar..."
+
+	# Enable Game bar
+	Get-AppxPackage -AllUsers Microsoft.XboxGamingOverlay | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR" -Name "AppCaptureEnabled" -Type DWord -Value 1
+
+	if (!(Test-Path -Path "HKCU:\System\GameConfigStore")) {
+		New-Item -Path "HKCU:\System\GameConfigStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 1
+
+	# Disable Game Bar Tips
+	if ((Get-AppxPackage -Name Microsoft.XboxGamingOverlay) -or (Get-AppxPackage -Name Microsoft.GamingApp)) {
+		Set-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "ShowStartupPanel" -Type DWord -Value 0
+	}
+
+	# Disable Open Game Bar using Xbox button on Game Controller
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\GameBar")) {
+		New-Item -Path "HKCU:\Software\Microsoft\GameBar" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "UseNexusForGameBarEnabled" -Type DWord -Value 1
 }
 
 
