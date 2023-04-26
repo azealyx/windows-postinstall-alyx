@@ -155,6 +155,7 @@ ShowMusicInExplorer             # HideMusicFromExplorer
 ShowPicturesInExplorer          # HidePicturesFromExplorer
 ShowVideosInExplorer            # HideVideosFromExplorer
 ShowNetworkInExplorer           # HideNetworkFromExplorer
+SetContextMenuLegacy            # SetContextMenuModern
 HideEditWithPaint3DMenu         # ShowEditWithPaint3DMenu
 HidePrintCMDMenu                # ShowPrintCMDMenu
 # ShowShareMenu                 # HideShareMenu

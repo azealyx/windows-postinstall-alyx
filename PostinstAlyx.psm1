@@ -3137,6 +3137,28 @@ Function ShowNetworkInExplorer {
 }
 
 
+# Set Windows 11 context menu to legacy
+Function SetContextMenuLegacy {
+	Write-Output "Setting Windows context menu to legacy..."
+	if (!(Test-Path -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}")) {
+		New-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" -Force | Out-Null
+	}
+	if (!(Test-Path -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32")) {
+		New-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" -Name "(default)" -Type String -Value "" -Force
+}
+
+# Set Windows 11 context menu to modern
+Function SetContextMenuModern {
+	Write-Output "Setting Windows context menu to modern..."
+	if (!(Test-Path -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}")) {
+		New-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" -Force | Out-Null
+	}
+	Remove-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" -Recurse -ErrorAction SilentlyContinue
+}
+
+
 # Hide 'Edit with Paint 3D' context menu item
 Function HideEditWithPaint3DMenu {
 	Write-Output "Hiding 'Edit with Paint 3D' context menu item..."
