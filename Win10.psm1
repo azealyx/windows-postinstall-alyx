@@ -4395,6 +4395,25 @@ Function EnableFullscreenOptims {
 }
 
 
+# Disable Multiplane Overlay
+Function DisableMPO {
+	Write-Output "Disabling Multiplane Overlay..."
+	if (!(Test-Path "HKLM:\Software\Microsoft\Windows\Dwm")) {
+		New-Item -Path "HKLM:\Software\Microsoft\Windows\Dwm" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\Dwm" -Name "OverlayTestMode" -Type DWord -Value 5
+}
+
+# Enable Multiplane Overlay
+Function EnableMPO {
+	Write-Output "Enabling Multiplane Overlay..."
+	if (!(Test-Path "HKLM:\Software\Microsoft\Windows\Dwm")) {
+		New-Item -Path "HKLM:\Software\Microsoft\Windows\Dwm" -Force | Out-Null
+	}
+	Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\Dwm" -Name "OverlayTestMode" -ErrorAction SilentlyContinue
+}
+
+
 # Set BIOS time to UTC
 Function SetBIOSTimeUTC {
 	Write-Output "Setting BIOS time to UTC..."

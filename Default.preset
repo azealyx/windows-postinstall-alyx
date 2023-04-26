@@ -221,7 +221,8 @@ DisableAccessibilityKeys        # EnableAccessibilityKeys
 DisableF1HelpKey                # EnableF1HelpKey
 # EnableNumlock                 # DisableNumlock
 DisableAeroShake                # EnableAeroShake
-DisableFullscreenOptims         # EnableFullscreenOptims
+# DisableFullscreenOptims       # EnableFullscreenOptims
+DisableMPO                      # EnableMPO
 SetBIOSTimeLocal                # SetBIOSTimeUTC
 # AddENKeyboard                 # RemoveENKeyboard
 
