@@ -2232,6 +2232,39 @@ Function SetStartLayoutRecs {
 }
 
 
+# Disable Search Highlights
+Function DisableSearchHighlights {
+	Write-Output "Disabling Search Highlights..."
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB" -Force | Out-Null
+	}
+
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB" -Name "ShowDynamicContent" -Type DWord -Value 0
+
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Force | Out-Null
+	}
+
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 0
+}
+
+# Enable Search Highlights
+Function EnableSearchHighlights {
+	Write-Output "Enabling Search Highlights..."
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB" -Force | Out-Null
+	}
+
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB" -Name "ShowDynamicContent" -Type DWord -Value 1
+
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Force | Out-Null
+	}
+
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 1
+}
+
+
 # Disable Web Search in Start Menu
 Function DisableWebSearch {
 	Write-Output "Disabling Bing Search in Start Menu..."
@@ -2269,36 +2302,22 @@ Function EnableWebSearch {
 }
 
 
-# Disable Search Highlights
-Function DisableSearchHighlights {
-	Write-Output "Disabling Search Highlights..."
-	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB")) {
-		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB" -Force | Out-Null
+# Set Taskbar Alignment to Left
+Function SetTaskbarAlignLeft {
+	Write-Output "Setting Taskbar Alignment to Left..."
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
 	}
-
-	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB" -Name "ShowDynamicContent" -Type DWord -Value 0
-
-	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings")) {
-		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Force | Out-Null
-	}
-
-	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 0
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarAl" -Type DWord -Value 0
 }
 
-# Enable Search Highlights
-Function EnableSearchHighlights {
-	Write-Output "Enabling Search Highlights..."
-	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB")) {
-		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB" -Force | Out-Null
+# Set Taskbar Alignment to Center
+Function SetTaskbarAlignCenter {
+	Write-Output "Setting Taskbar Alignment to Center..."
+	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
 	}
-
-	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds\DSB" -Name "ShowDynamicContent" -Type DWord -Value 1
-
-	if (!(Test-Path -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings")) {
-		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Force | Out-Null
-	}
-
-	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\SearchSettings" -Name "IsDynamicSearchBoxEnabled" -Type DWord -Value 1
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarAl" -Type DWord -Value 1
 }
 
 
@@ -2398,6 +2417,25 @@ Function ShowTaskbarSearchBox {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 2
+}
+
+
+# Hide Taskbar Chat icon
+Function HideTaskbarChat {
+	Write-Output "Hiding Taskbar Chat icon..."
+	if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Chat")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Chat" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Chat" -Name "ChatIcon" -Type DWord -Value 3
+}
+
+# Show Taskbar Chat icon
+Function ShowTaskbarChat {
+	Write-Output "Showing Taskbar Chat icon..."
+	if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Chat")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Chat" -Force | Out-Null
+	}
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Chat" -Name "ChatIcon" -ErrorAction SilentlyContinue
 }
 
 

@@ -116,10 +116,12 @@ DisableAppSuggestions           # EnableAppSuggestions
 SetStartLayoutPins              # SetStartLayoutDefault         # SetStartLayoutRecs
 DisableSearchHighlights         # EnableSearchHighlights
 DisableWebSearch                # EnableWebSearch
+SetTaskbarAlignLeft             # SetTaskbarAlignCenter
 ShowLargeTaskbarIcons           # ShowSmallTaskbarIcons
 SetWinXMenuCmd                  # SetWinXMenuPowerShell
 SetTaskbarCombineAlways         # SetTaskbarCombineWhenFull     # SetTaskbarCombineNever
 HideTaskbarSearch               # ShowTaskbarSearchIcon         # ShowTaskbarSearchBox
+HideTaskbarChat                 # ShowTaskbarChat
 HideWidgets                     # ShowWidgets
 HideTaskView                    # ShowTaskView
 HideTrayIcons                   # ShowTrayIcons
