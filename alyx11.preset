@@ -282,7 +282,6 @@ UninstallWorkFolders            # InstallWorkFolders
 # EnableAudio                   # DisableAudio
 
 ###  Unpinning  ###
-UnpinStartMenuTiles
 UnpinTaskbarIcons
 
 ###  Auxiliary Functions  ###
