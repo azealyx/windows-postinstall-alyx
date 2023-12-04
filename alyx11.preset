@@ -113,6 +113,7 @@ DisableStartupSound             # EnableStartupSound
 HideRecentlyAddedApps           # ShowRecentlyAddedApps
 HideMostUsedApps                # ShowMostUsedApps
 DisableAppSuggestions           # EnableAppSuggestions
+HideBrowsingHistory             # ShowBrowsingHistory
 SetStartLayoutPins              # SetStartLayoutDefault         # SetStartLayoutRecs
 DisableSearchHighlights         # EnableSearchHighlights
 DisableWebSearch                # EnableWebSearch
@@ -121,6 +122,7 @@ ShowLargeTaskbarIcons           # ShowSmallTaskbarIcons
 SetWinXMenuCmd                  # SetWinXMenuPowerShell
 SetTaskbarCombineAlways         # SetTaskbarCombineWhenFull     # SetTaskbarCombineNever
 HideTaskbarSearch               # ShowTaskbarSearchIcon         # ShowTaskbarSearchBox
+HideTaskbarCopilot              # ShowTaskbarCopilot
 HideTaskbarChat                 # ShowTaskbarChat
 HideWidgets                     # ShowWidgets
 HideTaskView                    # ShowTaskView
@@ -224,7 +226,9 @@ DisableAutorun                  # EnableAutorun
 DisableAccessibilityKeys        # EnableAccessibilityKeys
 DisableF1HelpKey                # EnableF1HelpKey
 # EnableNumlock                 # DisableNumlock
-DisableAeroShake                # EnableAeroShake
+EnableWindowSnap                # DisableWindowSnap
+DisableShowTabsFromApps         # EnableShowTabsFromApps
+DisableWindowShake              # EnableWindowShake
 # DisableFullscreenOptims       # EnableFullscreenOptims
 DisableMPO                      # EnableMPO
 SetBIOSTimeLocal                # SetBIOSTimeUTC

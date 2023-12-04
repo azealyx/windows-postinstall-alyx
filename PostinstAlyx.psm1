@@ -2139,6 +2139,11 @@ Function DisableAppSuggestions {
 		Set-ItemProperty -Path $key.PSPath -Name "Data" -Type Binary -Value $key.Data[0..15]
 		Stop-Process -Name "ShellExperienceHost" -Force -ErrorAction SilentlyContinue
 	}
+
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_IrisRecommendations" -Type DWord -Value 0
 }
 
 # Enable Application suggestions and automatic installation
@@ -2165,6 +2170,23 @@ Function EnableAppSuggestions {
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SubscribedContent-353698Enabled" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement" -Name "ScoobeSystemSettingEnabled" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsInkWorkspace" -Name "AllowSuggestedAppsInWindowsInkWorkspace" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_IrisRecommendations" -ErrorAction SilentlyContinue
+}
+
+
+# Hide browsing history from the Start Menu
+Function HideBrowsingHistory {
+	Write-Output "Hiding browsing history from the Start Menu..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_RecoPersonalizedSites" -Type DWord -Value 0
+}
+
+# Show 'Browsing history' from the Start Menu
+Function ShowBrowsingHistory {
+	Write-Output "Showing browsing history from the Start Menu..."
+	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_RecoPersonalizedSites" -ErrorAction SilentlyContinue
 }
 
 
@@ -2420,6 +2442,25 @@ Function ShowTaskbarSearchBox {
 }
 
 
+# Hide Taskbar Copilot icon
+Function HideTaskbarCopilot {
+	Write-Output "Hiding Taskbar Copilot icon..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowCopilotButton" -Type DWord -Value 0
+}
+
+# Show Taskbar Copilot icon
+Function ShowTaskbarCopilot {
+	Write-Output "Showing Taskbar Copilot icon..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowCopilotButton" -Type DWord -Value 1
+}
+
+
 # Hide Taskbar Chat icon
 Function HideTaskbarChat {
 	Write-Output "Hiding Taskbar Chat icon..."
@@ -2427,15 +2468,22 @@ Function HideTaskbarChat {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Chat" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Chat" -Name "ChatIcon" -Type DWord -Value 3
+
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarMn" -Type DWord -Value 0
 }
 
 # Show Taskbar Chat icon
 Function ShowTaskbarChat {
 	Write-Output "Showing Taskbar Chat icon..."
-	if (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Chat")) {
-		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Chat" -Force | Out-Null
-	}
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Chat" -Name "ChatIcon" -ErrorAction SilentlyContinue
+
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarMn" -Type DWord -Value 1
 }
 
 
@@ -4452,9 +4500,47 @@ Function DisableNumlock {
 }
 
 
-# Disable Aero Shake (minimizing other windows when one is dragged by mouse and shaken)
-Function DisableAeroShake {
-	Write-Output "Disabling Aero Shake..."
+# Enable Snap Windows feature
+Function EnableWindowSnap {
+	Write-Output "Enabling Snap Windows into layouts..."
+	if (!(Test-Path "HKCU:\Control Panel\Desktop")) {
+		New-Item -Path "HKCU:\Control Panel\Desktop" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WindowArrangementActive" -Type DWord -Value 1
+}
+
+# Disable Snap Windows feature
+Function DisableWindowSnap {
+	Write-Output "Disabling Snap Windows into layouts..."
+	if (!(Test-Path "HKCU:\Control Panel\Desktop")) {
+		New-Item -Path "HKCU:\Control Panel\Desktop" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WindowArrangementActive" -Type DWord -Value 0
+}
+
+
+# Disable 
+Function DisableShowTabsFromApps {
+	Write-Output "Disabling Show tabs from apps when snapping or pressing Alt + Tab..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MultiTaskingAltTabFilter" -Type DWord -Value 3
+}
+
+# Enable Aero Shake
+Function EnableShowTabsFromApps {
+	Write-Output "Enabling Show tabs from apps when snapping or pressing Alt + Tab..."
+	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
+		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MultiTaskingAltTabFilter" -Type DWord -Value 0
+}
+
+
+# Disable Title bar window shake (minimizing other windows when one is dragged by mouse and shaken)
+Function DisableWindowShake {
+	Write-Output "Disabling Title bar window shake to minimize..."
 	if (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Force | Out-Null
 	}
@@ -4472,8 +4558,8 @@ Function DisableAeroShake {
 }
 
 # Enable Aero Shake
-Function EnableAeroShake {
-	Write-Output "Enabling Aero Shake..."
+Function EnableWindowShake {
+	Write-Output "Enabling Title bar window shake to minimize..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DisallowShaking" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -Name "NoWindowMinimizingShortcuts" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" -Name "NoWindowMinimizingShortcuts" -ErrorAction SilentlyContinue
