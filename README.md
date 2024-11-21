@@ -1,8 +1,8 @@
 ## Contents
  - [Description](#description)
+ - [Windows builds overview](#windows-builds-overview)
  - [Usage](#usage)
  - [FAQ](#faq)
- - [Windows builds overview](#windows-builds-overview)
  - [Advanced usage](#advanced-usage)
  - [Maintaining own forks](#maintaining-own-forks)
  - [Contribution guidelines](#contribution-guidelines)
@@ -15,8 +15,20 @@ This is a PowerShell script for automation of routine tasks done after fresh ins
 
 &nbsp;
 
+## Windows builds overview
+
+| Version | Codename |      Marketing name | Build |
+| ------: | -------: | ------------------: | ----: |
+|    20H1 |     20H1 |     May 2020 Update | 19041 |
+|    20H2 |     20H2 | October 2020 Update | 19042 |
+|    21H1 |     21H1 |     May 2021 Update | 19043 |
+|    21H2 |     21H2 | October 2021 Update | 19044 |
+|    22H2 |     22H2 |         2022 Update | 19045 |
+
+&nbsp;
+
 ## Usage
-If you just want to run the script with the default preset, download and unpack the [latest release](https://github.com/Disassembler0/Win10-Initial-Setup-Script/releases) and then simply double-click on the *Default.cmd* file and confirm *User Account Control* prompt. Make sure your account is a member of *Administrators* group as the script attempts to run with elevated privileges.
+If you just want to run the script with the default preset, download and unpack the [latest release](https://github.com/azealyx/win10-postinstall-alyx/releases) and then simply double-click on the *Default.cmd* file and confirm *User Account Control* prompt. Make sure your account is a member of *Administrators* group as the script attempts to run with elevated privileges.
 
 The script supports command line options and parameters which can help you customize the tweak selection or even add your own custom tweaks, however these features require some basic knowledge of command line usage and PowerShell scripting. Refer to [Advanced usage](#advanced-usage) section for more details.
 
@@ -68,24 +80,6 @@ The script supports command line options and parameters which can help you custo
 
 **Q:** I really like the script. Can I send a donation?  
 **A:** Feel free to send donations via [PayPal](https://www.paypal.me/Disassembler). Any amount is appreciated, but keep in mind that donations are completely voluntary and I'm not obliged to make any script adjustments in your favor regardless of the donated amount. You can also drop me a mail to discuss an alternative way.
-
-&nbsp;
-
-## Windows builds overview
-
-| Version |        Code name        |     Marketing name     | Build |
-| :-----: | ----------------------- | ---------------------- | :---: |
-|  1507   | Threshold 1 (TH1 / RTM) | N/A                    | 10240 |
-|  1511   | Threshold 2 (TH2)       | November Update        | 10586 |
-|  1607   | Redstone 1 (RS1)        | Anniversary Update     | 14393 |
-|  1703   | Redstone 2 (RS2)        | Creators Update        | 15063 |
-|  1709   | Redstone 3 (RS3)        | Fall Creators Update   | 16299 |
-|  1803   | Redstone 4 (RS4)        | April 2018 Update      | 17134 |
-|  1809   | Redstone 5 (RS5)        | October 2018 Update    | 17763 |
-|  1903   | 19H1                    | May 2019 Update        | 18362 |
-|  1909   | 19H2                    | November 2019 Update   | 18363 |
-|  2004   | 20H1                    | May 2020 Update        | 19041 |
-|  20H2   | 20H2                    | October 2020 Update    | 19042 |
 
 &nbsp;
 
@@ -186,7 +180,7 @@ If you wish to make more elaborate modifications of the basic script and incorpo
 3. Add the original repository as a remote (*upstream*).
 
     ```
-    git remote add upstream https://github.com/Disassembler0/Win10-Initial-Setup-Script
+    git remote add upstream https://github.com/azealyx/win10-postinstall-alyx
     ```
 
 4. Commit your modifications as you see fit.

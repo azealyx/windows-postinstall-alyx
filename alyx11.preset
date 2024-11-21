@@ -1,0 +1,20 @@
+# -
+#   Windows Postinstall Script - Default Win11 preset
+#   (https://github.com/azealyx/windows-postinstall-alyx)
+#   Author: Azealyx <itsazealyx@gmail.com>
+#   Version: v0.1b, 2024-11-21
+#
+#   Original author: Disassembler <disassembler@dasm.cz>
+#   Cloned from: https://github.com/Disassembler0/Win10-Initial-Setup-Script
+# -
+
+###  Elevate to admin privileges  ###
+RequireAdmin
+
+###  Unpinning  ###
+# UnpinStartMenuTiles
+# UnpinTaskbarIcons
+
+###  Auxiliary Functions  ###
+WaitForKey
+# RestartExplorer
